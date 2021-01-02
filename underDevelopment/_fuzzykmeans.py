@@ -41,12 +41,16 @@ class FuzzyKMeans():
 
     def calculate_membership_matrix(self, distance_matrix):
         membership_matrix=np.zeros([self.number_of_clusters,self.datapoints])
-        pass #work needs
+        for i in range(self.number_of_clusters):
+            for j in range(self.datapoints):
+                pass
         return membership_matrix
 
     def calculate_centroids(self, membership_matrix):
         new_centroids=np.zeros(self.centroids.shape)
-        pass #work needs
+        for i in range(self.number_of_clusters):
+            for j in range(self.datapoints):
+                pass
         return new_centroids
 
     def find_distance(self, point_a, point_b):
