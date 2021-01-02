@@ -31,17 +31,33 @@ class FuzzyKMeans():
         return self
 
     def calculate_distance_matrix(self, new_centroids):
-        pass
+        distance_matrix=np.zeros([self.number_of_clusters,self.datapoints])
+        
+        for i in range(self.number_of_clusters):
+            for j in range(self.datapoints):
+                distance_matrix[i][j]=find_distance(new_centroids[i], self.data_matrix[j])
+
         return distance_matrix
 
     def calculate_membership_matrix(self, distance_matrix):
-        pass
+        membership_matrix=np.zeros([self.number_of_clusters,self.datapoints])
+        pass #work needs
         return membership_matrix
 
     def calculate_centroids(self, membership_matrix):
-        pass
+        new_centroids=np.zeros(self.centroids.shape)
+        pass #work needs
         return new_centroids
 
     def find_distance(self, point_a, point_b):
          
          return np.linalg.norm(point_a - point_b)
+
+
+
+
+
+
+
+
+
