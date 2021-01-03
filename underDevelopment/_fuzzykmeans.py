@@ -3,10 +3,11 @@ import numpy as np
 
 
 class FuzzyKMeans():
-    def __init__(self, number_of_clusters, centroids):
+    def __init__(self, number_of_clusters, centroids, fuzziness):
 
         self.number_of_clusters=number_of_clusters
         self.centroids=centroids
+        self.fuzziness=fuzziness
 
     def fit(self, data_matrix):
         self.data_matrix=data_matrix
@@ -25,8 +26,9 @@ class FuzzyKMeans():
             previous_centroids=new_centroids
             new_centroids=calculate_centroids(membership_matrix)
 
+        self.membership_matrix=membership_matrix
         self.centroids=new_centroids
-        self.cluster_assignment_list=cluster_assignment_list
+        self.cluster_assignment_list=cluster_assignment()
 
         return self
 
@@ -34,6 +36,7 @@ class FuzzyKMeans():
         distance_matrix=np.zeros([self.number_of_clusters,self.datapoints])
         
         for i in range(self.number_of_clusters):
+
             for j in range(self.datapoints):
                 distance_matrix[i][j]=find_distance(new_centroids[i], self.data_matrix[j])
 
@@ -41,21 +44,44 @@ class FuzzyKMeans():
 
     def calculate_membership_matrix(self, distance_matrix):
         membership_matrix=np.zeros([self.number_of_clusters,self.datapoints])
-        for i in range(self.number_of_clusters):
-            for j in range(self.datapoints):
-                pass
+        
+        for i in range(self.datapoints):
+            
+            for j in range(self.number_of_clusters):
+                temp=0.0
+
+                for k in range(self.number_of_clusters):
+                    temp=(distance_matrix[j][j]**2)/(distance_matrix[j][k]**2)+temp
+
+                membership_matrix[j][i]=(temp**(1.0/(self.fuzziness-1)))**(-1)
+        
         return membership_matrix
 
     def calculate_centroids(self, membership_matrix):
         new_centroids=np.zeros(self.centroids.shape)
         for i in range(self.number_of_clusters):
-            for j in range(self.datapoints):
-                pass
+
+            for j in range(self.features):
+                temp_numerator=0.0
+                temp_denominator=0.0
+                
+                for k in range(self.datapoints):
+                    temp_numerator=((membership_matrix[i][k]**self.fuzziness)*self.data_matrix[k][j])+temp_numerator
+                    temp_denominator=(membership_matrix[i][k]**self.fuzziness)+temp_denominator
+                
+                new_centroids[i][j]=(temp_numerator/temp_denominator)
+        
         return new_centroids
 
     def find_distance(self, point_a, point_b):
          
          return np.linalg.norm(point_a - point_b)
+    
+    def cluster_assignment(self):
+        cluster_assignment_list=np.zeros(self.datapoints)
+
+        for i in range(self.datapoints):
+            pass
 
 
 
