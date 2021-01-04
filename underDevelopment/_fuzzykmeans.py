@@ -2,7 +2,7 @@
 import numpy as np
 
 
-class FuzzyKMeans():
+class FuzzyKMeans:
     def __init__(self, number_of_clusters, centroids, fuzziness, threshold):
 
         self.number_of_clusters=number_of_clusters
