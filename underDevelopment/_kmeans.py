@@ -21,12 +21,12 @@ class KMeans:
 
             datapoint_no=0
             while datapoint_no < self.datapoints :
-                distance=find_distance(self.data_matrix[datapoint_no], new_centroids[0])
+                distance=self.find_distance(self.data_matrix[datapoint_no], new_centroids[0])
                 assigned_cluster_no=0
 
                 centroid_no=1
                 while centroid_no < new_centroids.shape[0] :
-                    tmp_distance=find_distance(self.data_matrix[datapoint_no], new_centroids[centroid_no])
+                    tmp_distance=self.find_distance(self.data_matrix[datapoint_no], new_centroids[centroid_no])
                     
                     if tmp_distance < distance :
                         distance=tmp_distance
@@ -38,7 +38,7 @@ class KMeans:
                 datapoint_no=datapoint_no+1
 
             previous_centroids=new_centroids
-            new_centroids=calculate_centroids(cluster_assignment_list)
+            new_centroids=self.calculate_centroids(cluster_assignment_list)
 
         self.centroids=new_centroids
         self.cluster_assignment_list=cluster_assignment_list

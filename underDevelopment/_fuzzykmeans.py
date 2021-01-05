@@ -22,10 +22,10 @@ class FuzzyKMeans:
         distance_matrix=np.zeros([self.number_of_clusters,self.datapoints])
 
         while within_threshold(previous_centroids, new_centroids)==False :
-            distance_matrix=calculate_distance_matrix(new_centroids)
-            membership_matrix=calculate_membership_matrix(distance_matrix)
+            distance_matrix=self.calculate_distance_matrix(new_centroids)
+            membership_matrix=self.calculate_membership_matrix(distance_matrix)
             previous_centroids=new_centroids
-            new_centroids=calculate_centroids(membership_matrix)
+            new_centroids=self.calculate_centroids(membership_matrix)
 
         self.membership_matrix=membership_matrix
         self.centroids=new_centroids
@@ -39,7 +39,7 @@ class FuzzyKMeans:
         for i in range(self.number_of_clusters):
 
             for j in range(self.datapoints):
-                distance_matrix[i][j]=find_distance(new_centroids[i], self.data_matrix[j])
+                distance_matrix[i][j]=self.find_distance(new_centroids[i], self.data_matrix[j])
 
         return distance_matrix
 
@@ -98,7 +98,7 @@ class FuzzyKMeans:
     def within_threshold(self, previous_centroids, new_centroids):
         
         for i in range(self.number_of_clusters):
-            distance=find_distance(previous_centroids[i], new_centroids[i])
+            distance=self.find_distance(previous_centroids[i], new_centroids[i])
 
             if distance > self.threshold :
                 return False
