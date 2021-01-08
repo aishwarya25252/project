@@ -21,7 +21,7 @@ class PreProcessing :
 
     def feature_selection(dataframe,feature_count):
         tmp=dataframe.std()
-        labels=dataframe.sort_values(ascending=False).index[:feature_count]
+        labels=tmp.sort_values(ascending=False).index[:feature_count]
 
         return dataframe[labels]
 
