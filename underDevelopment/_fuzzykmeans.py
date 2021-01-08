@@ -17,7 +17,7 @@ class FuzzyKMeans:
 
         new_centroids=self.centroids
         previous_centroids=np.zeros(new_centroids.shape)
-        cluster_assignment_list=np.zeros(self.datapoints)
+        cluster_assignment_list=np.zeros(self.datapoints).astype('int32')
         membership_matrix=np.zeros([self.number_of_clusters,self.datapoints])
         distance_matrix=np.zeros([self.number_of_clusters,self.datapoints])
 
